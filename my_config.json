@@ -1,0 +1,6 @@
+{
+    "executable_name": "GHB_with_toggle_FDP",
+    "L2C": {
+        "prefetcher": "next_line"
+    }
+}

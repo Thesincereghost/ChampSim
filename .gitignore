@@ -14,6 +14,7 @@ test/000-test-main
 tracer/pin/obj-intel64/
 
 vcpkg_installed/
+dpc3_traces/
 
 **/_build
 **/_doxygen
