@@ -1,6 +1,6 @@
 {
-    "executable_name": "GHB_with_toggle_FDP",
+    "executable_name": "ghb_stride",
     "L2C": {
-        "prefetcher": "next_line"
+        "prefetcher": "ghb_stride"
     }
 }
