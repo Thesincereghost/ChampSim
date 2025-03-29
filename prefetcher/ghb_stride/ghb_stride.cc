@@ -65,9 +65,9 @@ void ghb_stride::prefetcher_final_stats() {
 
 uint32_t ghb_stride::prefetcher_cache_operate(champsim::address addr, champsim::address ip, uint8_t cache_hit, bool useful_prefetch, access_type type,
                                               uint32_t metadata_in) {
-  if (type == access_type::LOAD) {
+//   if (type == access_type::LOAD) {
     operate(addr, ip, metadata_in); // Pass metadata_in to operate
-  }
+//   }
   return metadata_in;
 }
 
