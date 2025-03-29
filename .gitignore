@@ -5,7 +5,6 @@ _configuration.mk
 *.pyc
 
 bin/
-results/
 
 **/*.o
 **/*.d
