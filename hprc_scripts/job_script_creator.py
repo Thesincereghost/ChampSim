@@ -2,9 +2,7 @@ import os
 
 # Ensure the script is executed from the hprc_scripts folder
 scripts = []
-executables = ['ip_stride', 'ghb_stride'
-               ,'ghb_stride_fdp'
-               ]
+executables = ['ip_stride', 'ghb_stride', 'ghb_stride_fdp']
 benchmarks = [
     '600.perlbench_s-210B.champsimtrace.xz',
     '602.gcc_s-734B.champsimtrace.xz',
@@ -52,7 +50,7 @@ echo "Running {benchmark}"
 ../bin/{executable} \\
 --warmup_instructions 100000000 \\
 --simulation_instructions 500000000 \\
-../dpc3_traces/{benchmark} \\
+/scratch/user/vaishnav.g/ecen676/hw1/ChampSim/dpc3_traces/{benchmark} \\
 > {results_folder}/{executable}/{executable}_{benchmark[0:3]}.txt
 echo "Finished running {benchmark}"
 """
