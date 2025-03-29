@@ -12,6 +12,6 @@ echo "Running 628.pop2_s-17B.champsimtrace.xz"
 ../bin/ghb_stride_fdp \
 --warmup_instructions 100000000 \
 --simulation_instructions 500000000 \
-../dpc3_traces/628.pop2_s-17B.champsimtrace.xz \
+/scratch/user/vaishnav.g/ecen676/hw1/ChampSim/dpc3_traces/628.pop2_s-17B.champsimtrace.xz \
 > ../results/ghb_stride_fdp/ghb_stride_fdp_628.txt
 echo "Finished running 628.pop2_s-17B.champsimtrace.xz"

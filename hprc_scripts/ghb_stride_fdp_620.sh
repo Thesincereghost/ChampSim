@@ -12,6 +12,6 @@ echo "Running 620.omnetpp_s-874B.champsimtrace.xz"
 ../bin/ghb_stride_fdp \
 --warmup_instructions 100000000 \
 --simulation_instructions 500000000 \
-../dpc3_traces/620.omnetpp_s-874B.champsimtrace.xz \
+/scratch/user/vaishnav.g/ecen676/hw1/ChampSim/dpc3_traces/620.omnetpp_s-874B.champsimtrace.xz \
 > ../results/ghb_stride_fdp/ghb_stride_fdp_620.txt
 echo "Finished running 620.omnetpp_s-874B.champsimtrace.xz"

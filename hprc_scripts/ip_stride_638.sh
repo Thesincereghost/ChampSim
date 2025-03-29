@@ -12,6 +12,6 @@ echo "Running 638.imagick_s-10316B.champsimtrace.xz"
 ../bin/ip_stride \
 --warmup_instructions 100000000 \
 --simulation_instructions 500000000 \
-../dpc3_traces/638.imagick_s-10316B.champsimtrace.xz \
+/scratch/user/vaishnav.g/ecen676/hw1/ChampSim/dpc3_traces/638.imagick_s-10316B.champsimtrace.xz \
 > ../results/ip_stride/ip_stride_638.txt
 echo "Finished running 638.imagick_s-10316B.champsimtrace.xz"

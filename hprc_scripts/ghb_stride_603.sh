@@ -12,6 +12,6 @@ echo "Running 603.bwaves_s-3699B.champsimtrace.xz"
 ../bin/ghb_stride \
 --warmup_instructions 100000000 \
 --simulation_instructions 500000000 \
-../dpc3_traces/603.bwaves_s-3699B.champsimtrace.xz \
+/scratch/user/vaishnav.g/ecen676/hw1/ChampSim/dpc3_traces/603.bwaves_s-3699B.champsimtrace.xz \
 > ../results/ghb_stride/ghb_stride_603.txt
 echo "Finished running 603.bwaves_s-3699B.champsimtrace.xz"

@@ -12,6 +12,6 @@ echo "Running 600.perlbench_s-210B.champsimtrace.xz"
 ../bin/ip_stride \
 --warmup_instructions 100000000 \
 --simulation_instructions 500000000 \
-../dpc3_traces/600.perlbench_s-210B.champsimtrace.xz \
+/scratch/user/vaishnav.g/ecen676/hw1/ChampSim/dpc3_traces/600.perlbench_s-210B.champsimtrace.xz \
 > ../results/ip_stride/ip_stride_600.txt
 echo "Finished running 600.perlbench_s-210B.champsimtrace.xz"

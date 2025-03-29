@@ -12,6 +12,6 @@ echo "Running 607.cactuBSSN_s-2421B.champsimtrace.xz"
 ../bin/ghb_stride \
 --warmup_instructions 100000000 \
 --simulation_instructions 500000000 \
-../dpc3_traces/607.cactuBSSN_s-2421B.champsimtrace.xz \
+/scratch/user/vaishnav.g/ecen676/hw1/ChampSim/dpc3_traces/607.cactuBSSN_s-2421B.champsimtrace.xz \
 > ../results/ghb_stride/ghb_stride_607.txt
 echo "Finished running 607.cactuBSSN_s-2421B.champsimtrace.xz"
