@@ -1,6 +1,7 @@
 {
-    "executable_name": "ghb_stride",
+    "executable_name": "ip_stride",
+    "branch_predictor": "perceptron",
     "L2C": {
-        "prefetcher": "ghb_stride"
+        "prefetcher": "ip_stride"
     }
 }
