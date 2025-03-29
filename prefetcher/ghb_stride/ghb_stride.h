@@ -3,6 +3,8 @@
 
 // #include "cache.h"
 #include "modules.h"
+#include <vector>
+#include <unordered_map>
 
 class ghb_stride : public champsim::modules::prefetcher { 
 
