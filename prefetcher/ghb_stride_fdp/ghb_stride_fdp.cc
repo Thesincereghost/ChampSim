@@ -10,7 +10,7 @@ void ghb_stride_fdp::prefetcher_initialise() {
   ghb_head = -1;
   dynamic_counter = 3; // Reset to "Middle-of-the-Road" aggressiveness
   eviction_count = 0; // Reset eviction counter
-  reset_counters();
+   reset_counters();
 }
 
 void ghb_stride_fdp::prefetcher_final_stats() {
@@ -79,10 +79,12 @@ void ghb_stride_fdp::operate(champsim::address addr, champsim::address pc, uint3
   }
 
   if (consistent_stride) {
-    // Issue prefetches
+    // Issue prefetches using prefetch_distance
     for (unsigned int i = 1; i <= degree; ++i) {
-      champsim::address pf_addr = addr + (lookahead + i) * stride;
+      champsim::address pf_addr = addr + (prefetch_distance + i) * stride;
+      if (pf_addr.to<std::size_t>() - addr.to<std::size_t>() <= prefetch_distance) { // Check if the address is valid for prefetching
       issue_prefetch(pf_addr, metadata_in);
+      }
     }
   }
 }
@@ -114,24 +116,24 @@ void ghb_stride_fdp::adjust_aggressiveness() {
   // Update aggressiveness based on the dynamic counter
   switch (dynamic_counter) {
     case 1: // Very Conservative
-      lookahead = 4;
-      degree = 1;
+      prefetch_distance = 4;
+      degree = 3;
       break;
     case 2: // Conservative
-      lookahead = 8;
-      degree = 1;
+      prefetch_distance = 8;
+      degree = 3;
       break;
     case 3: // Middle-of-the-Road
-      lookahead = 16;
-      degree = 2;
+      prefetch_distance = 16;
+      degree = 4;
       break;
     case 4: // Aggressive
-      lookahead = 32;
-      degree = 4;
+      prefetch_distance = 32;
+      degree = 5;
       break;
     case 5: // Very Aggressive
-      lookahead = 48;
-      degree = 4;
+      prefetch_distance = 48;
+      degree = 6;
       break;
   }
 }

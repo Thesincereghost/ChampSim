@@ -1,0 +1,14 @@
+run1:
+  ip_stride - default
+  ghb_stride : 
+  constexpr int DEFAULT_IT_SIZE = 256;
+  constexpr int DEFAULT_GHB_SIZE = 256;
+  constexpr int DEFAULT_LOOKAHEAD = 4;
+  constexpr int DEFAULT_PREFETCH_DEGREE = 4;
+  constexpr int DEFAULT_SEQUENCE_LENGTH = 3; 
+  ghb_stide_fdp : unsigned int it_size = 256;
+    unsigned int ghb_size = 256;
+    unsigned int lookahead = 16; // Default "Middle-of-the-Road" aggressiveness
+    unsigned int degree = 2;     // Default "Middle-of-the-Road" aggressiveness
+    unsigned int sequence_length = 3;
+run2:

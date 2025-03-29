@@ -5,11 +5,11 @@
 #include <cmath>
 #include <algorithm>
 
-constexpr int DEFAULT_IT_SIZE = 256;
-constexpr int DEFAULT_GHB_SIZE = 256;
-constexpr int DEFAULT_LOOKAHEAD = 4;
-constexpr int DEFAULT_PREFETCH_DEGREE = 4;
-constexpr int DEFAULT_SEQUENCE_LENGTH = 3; // Parametrize the sequence length
+// constexpr int DEFAULT_IT_SIZE = 256;
+// constexpr int DEFAULT_GHB_SIZE = 256;
+// constexpr int DEFAULT_LOOKAHEAD = 4;
+// constexpr int DEFAULT_PREFETCH_DEGREE = 4;
+// constexpr int DEFAULT_SEQUENCE_LENGTH = 3; // Parametrize the sequence length
 
 void ghb_stride::operate(champsim::address addr, champsim::address pc, uint32_t metadata_in) {
   unsigned int it_index = static_cast<unsigned int>(pc.to<std::size_t>()) % it_size; // Explicitly cast pc to unsigned int

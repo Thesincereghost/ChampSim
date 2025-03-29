@@ -10,9 +10,9 @@ class ghb_stride : public champsim::modules::prefetcher {
 
 public:
   using prefetcher::prefetcher;
-  static constexpr unsigned int DEFAULT_IT_SIZE = 256;
-  static constexpr unsigned int DEFAULT_GHB_SIZE = 256;
-  static constexpr unsigned int DEFAULT_LOOKAHEAD = 4;
+  static constexpr unsigned int DEFAULT_IT_SIZE = 2048;
+  static constexpr unsigned int DEFAULT_GHB_SIZE = 2048*4;
+  static constexpr unsigned int DEFAULT_LOOKAHEAD = 0;
   static constexpr unsigned int DEFAULT_PREFETCH_DEGREE = 4;
   static constexpr unsigned int DEFAULT_SEQUENCE_LENGTH = 3;
 

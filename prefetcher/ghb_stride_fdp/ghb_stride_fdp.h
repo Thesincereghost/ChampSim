@@ -20,10 +20,11 @@ private:
     int prev_ptr;
   };
 
-  unsigned int it_size = 256;
-  unsigned int ghb_size = 256;
-  unsigned int lookahead = 16; // Default "Middle-of-the-Road" aggressiveness
-  unsigned int degree = 2;     // Default "Middle-of-the-Road" aggressiveness
+  unsigned int it_size = 2048;
+  unsigned int ghb_size = 2048*16;
+  unsigned int lookahead = 0; // Default "Middle-of-the-Road" aggressiveness
+  unsigned int degree = 4;     // Default "Middle-of-the-Road" aggressiveness
+  unsigned int prefetch_distance = 16; // Default "Middle-of-the-Road" prefetch distance
   unsigned int sequence_length = 3;
 
   unsigned int dynamic_counter = 3; // Start with "Middle-of-the-Road" aggressiveness
@@ -38,8 +39,9 @@ private:
   unsigned int useful_prefetches_during_interval = 0; // Interval-specific useful prefetches
   unsigned int late_prefetches_during_interval = 0;   // Interval-specific late prefetches
   unsigned int total_prefetches_during_interval = 0;   // Interval-specific total prefetches
-  static constexpr unsigned int Tinterval = 1024 * 4; // Default interval threshold
+  static constexpr unsigned int Tinterval = 1000; // Default interval threshold
 
+  
   std::vector<GHBEntry> ghb = std::vector<GHBEntry>(ghb_size);
   std::unordered_map<int, int> index_table;
   int ghb_head = -1;
