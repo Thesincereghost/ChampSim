@@ -81,7 +81,7 @@ void ghb_stride_fdp::operate(champsim::address addr, champsim::address pc, uint3
   if (consistent_stride) {
     // Issue prefetches using prefetch_distance
     for (unsigned int i = 1; i <= degree; ++i) {
-      champsim::address pf_addr = addr + (prefetch_distance + i) * stride;
+      champsim::address pf_addr = addr + (lookahead + i) * stride;
       if (pf_addr.to<std::size_t>() - addr.to<std::size_t>() <= prefetch_distance) { // Check if the address is valid for prefetching
       issue_prefetch(pf_addr, metadata_in);
       }
