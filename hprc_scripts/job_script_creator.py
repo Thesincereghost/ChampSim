@@ -2,7 +2,7 @@ import os
 
 # Ensure the script is executed from the hprc_scripts folder
 scripts = []
-executables = [ 'ghb_stride', 'ghb_stride_fdp','no_pref', 'next_line']
+executables = [ 'ghb_stride', 'ghb_stride_fdp']
 benchmarks = [
     '600.perlbench_s-210B.champsimtrace.xz',
     '602.gcc_s-734B.champsimtrace.xz',
