@@ -4,6 +4,7 @@
 #include "modules.h"
 #include <vector>
 #include <unordered_map>
+#include <list>
 
 class ghb_stride_fdp : public champsim::modules::prefetcher {
 public:
@@ -21,13 +22,13 @@ private:
   };
 
   unsigned int it_size = 2048;
-  unsigned int ghb_size = 2048*16;
-  unsigned int lookahead = 0; // Default "Middle-of-the-Road" aggressiveness
-  unsigned int degree = 4;     // Default "Middle-of-the-Road" aggressiveness
-  unsigned int prefetch_distance = 16; // Default "Middle-of-the-Road" prefetch distance
+  unsigned int ghb_size = 2048 * 16;
+  unsigned int lookahead = 0;
+  unsigned int degree = 4;
+  unsigned int prefetch_distance = 16;
   unsigned int sequence_length = 3;
 
-  unsigned int dynamic_counter = 3; // Start with "Middle-of-the-Road" aggressiveness
+  unsigned int dynamic_counter = 3;
   unsigned int useful_prefetches = 0;
   unsigned int total_prefetches = 0;
   unsigned int late_prefetches = 0;
@@ -41,9 +42,11 @@ private:
   unsigned int total_prefetches_during_interval = 0;   // Interval-specific total prefetches
   static constexpr unsigned int Tinterval = 1000; // Default interval threshold
 
-  
   std::vector<GHBEntry> ghb = std::vector<GHBEntry>(ghb_size);
-  std::unordered_map<int, int> index_table;
+
+  // LRU data structure
+  std::unordered_map<int, int> index_table; // Maps PC to GHB index
+  std::list<int> lru_list; // Maintains LRU order
   int ghb_head = -1;
 
   void operate(champsim::address addr, champsim::address pc, uint32_t metadata_in);

@@ -5,6 +5,7 @@
 #include "modules.h"
 #include <vector>
 #include <unordered_map>
+#include <list>
 
 class ghb_stride : public champsim::modules::prefetcher { 
 
@@ -38,7 +39,10 @@ private:
   unsigned int degree = DEFAULT_PREFETCH_DEGREE;
   unsigned int sequence_length = DEFAULT_SEQUENCE_LENGTH;
   std::vector<GHBEntry> ghb = std::vector<GHBEntry>(DEFAULT_GHB_SIZE);
-  std::unordered_map<int, int> index_table;
+
+  // LRU data structure
+  std::unordered_map<int, int> index_table; // Maps PC to GHB index
+  std::list<int> lru_list; // Maintains LRU order
   int ghb_head = -1;
 };
 

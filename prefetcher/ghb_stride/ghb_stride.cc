@@ -2,22 +2,34 @@
 
 #include <vector>
 #include <unordered_map>
+#include <list>
 #include <cmath>
 #include <algorithm>
 
-// constexpr int DEFAULT_IT_SIZE = 256;
-// constexpr int DEFAULT_GHB_SIZE = 256;
-// constexpr int DEFAULT_LOOKAHEAD = 4;
-// constexpr int DEFAULT_PREFETCH_DEGREE = 4;
-// constexpr int DEFAULT_SEQUENCE_LENGTH = 3; // Parametrize the sequence length
-
 void ghb_stride::operate(champsim::address addr, champsim::address pc, uint32_t metadata_in) {
-  unsigned int it_index = static_cast<unsigned int>(pc.to<std::size_t>()) % it_size; // Explicitly cast pc to unsigned int
+  unsigned int it_index = pc.to<std::size_t>(); // Use PC directly as the key
   int ghb_index = (ghb_head + 1) % ghb_size;
 
+  // Check if the PC is already in the index_table
+  if (index_table.count(it_index)) {
+    // Move the accessed PC to the front of the LRU list
+    lru_list.remove(it_index);
+    lru_list.push_front(it_index);
+  } else {
+    // If the table is full, evict the least recently used entry
+    if (index_table.size() >= it_size) {
+      int lru_pc = lru_list.back(); // Get the least recently used PC
+      lru_list.pop_back(); // Remove it from the LRU list
+      index_table.erase(lru_pc); // Remove it from the map
+    }
+
+    // Add the new PC to the front of the LRU list
+    lru_list.push_front(it_index);
+  }
+
   // Update GHB
-  ghb[ghb_index] = {addr, index_table[it_index]};
-  index_table[it_index] = ghb_index;
+  ghb[ghb_index] = {addr, index_table.count(it_index) ? index_table[it_index] : -1};
+  index_table[it_index] = ghb_index; // Store the GHB index in the map
   ghb_head = ghb_index;
 
   // Retrieve last `sequence_length` addresses
@@ -54,7 +66,8 @@ void ghb_stride::prefetcher_initialise() {
   // Initialize internal data structures
   ghb.clear();
   ghb.resize(ghb_size);
-  index_table.clear();
+  index_table.clear(); // Clear the unordered_map
+  lru_list.clear(); // Clear the LRU list
   ghb_head = -1;
 }
 
@@ -65,9 +78,7 @@ void ghb_stride::prefetcher_final_stats() {
 
 uint32_t ghb_stride::prefetcher_cache_operate(champsim::address addr, champsim::address ip, uint8_t cache_hit, bool useful_prefetch, access_type type,
                                               uint32_t metadata_in) {
-//   if (type == access_type::LOAD) {
-    operate(addr, ip, metadata_in); // Pass metadata_in to operate
-//   }
+  operate(addr, ip, metadata_in); // Pass metadata_in to operate
   return metadata_in;
 }
 
@@ -81,9 +92,3 @@ void ghb_stride::issue_prefetch(champsim::address pf_addr, uint32_t metadata_in)
   bool fill_this_level = true; // Set to true to fill this cache level (L2)
   prefetch_line(pf_addr, fill_this_level, metadata_in); // Call simulator-provided function
 }
-
-// void ghb_stride::bind(CACHE* cache) {
-//   // This method is required for integration with the CACHE class.
-//   // Currently, no specific binding logic is needed for ghb_stride.
-//   (void)cache; // Suppress unused parameter warning
-// }

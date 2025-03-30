@@ -7,6 +7,7 @@ void ghb_stride_fdp::prefetcher_initialise() {
   ghb.clear();
   ghb.resize(ghb_size);
   index_table.clear();
+  lru_list.clear();
   ghb_head = -1;
   dynamic_counter = 3; // Reset to "Middle-of-the-Road" aggressiveness
   eviction_count = 0; // Reset eviction counter
@@ -49,12 +50,29 @@ uint32_t ghb_stride_fdp::prefetcher_cache_fill(champsim::address addr, long set,
 }
 
 void ghb_stride_fdp::operate(champsim::address addr, champsim::address pc, uint32_t metadata_in) {
-  unsigned int it_index = static_cast<unsigned int>(pc.to<std::size_t>()) % it_size;
+  unsigned int it_index = pc.to<std::size_t>(); // Use PC directly as the key
   int ghb_index = (ghb_head + 1) % ghb_size;
 
+  // Check if the PC is already in the index_table
+  if (index_table.count(it_index)) {
+    // Move the accessed PC to the front of the LRU list
+    lru_list.remove(it_index);
+    lru_list.push_front(it_index);
+  } else {
+    // If the table is full, evict the least recently used entry
+    if (index_table.size() >= it_size) {
+      int lru_pc = lru_list.back(); // Get the least recently used PC
+      lru_list.pop_back(); // Remove it from the LRU list
+      index_table.erase(lru_pc); // Remove it from the map
+    }
+
+    // Add the new PC to the front of the LRU list
+    lru_list.push_front(it_index);
+  }
+
   // Update GHB
-  ghb[ghb_index] = {addr, index_table[it_index]};
-  index_table[it_index] = ghb_index;
+  ghb[ghb_index] = {addr, index_table.count(it_index) ? index_table[it_index] : -1};
+  index_table[it_index] = ghb_index; // Store the GHB index in the map
   ghb_head = ghb_index;
 
   // Retrieve last `sequence_length` addresses
