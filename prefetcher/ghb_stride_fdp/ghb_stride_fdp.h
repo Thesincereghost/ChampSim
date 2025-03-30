@@ -45,8 +45,8 @@ private:
   std::vector<GHBEntry> ghb = std::vector<GHBEntry>(ghb_size);
 
   // LRU data structure
-  std::unordered_map<int, int> index_table; // Maps PC to GHB index
-  std::list<int> lru_list; // Maintains LRU order
+  std::unordered_map<std::size_t, int> index_table; // Maps PC to GHB index
+  std::list<std::size_t> lru_list; // Maintains LRU order
   int ghb_head = -1;
 
   void operate(champsim::address addr, champsim::address pc, uint32_t metadata_in);

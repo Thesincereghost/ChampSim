@@ -1,7 +1,7 @@
 {
-    "executable_name": "next_line",
+    "executable_name": "ghb_stride_fdp",
     "branch_predictor": "perceptron",
     "L2C": {
-        "prefetcher": "next_line"
+        "prefetcher": "ghb_stride_fdp"
     }
 }

@@ -7,7 +7,7 @@
 #include <algorithm>
 
 void ghb_stride::operate(champsim::address addr, champsim::address pc, uint32_t metadata_in) {
-  unsigned int it_index = pc.to<std::size_t>(); // Use PC directly as the key
+  std::size_t it_index = pc.to<std::size_t>(); // Use std::size_t to avoid truncation
   int ghb_index = (ghb_head + 1) % ghb_size;
 
   // Check if the PC is already in the index_table
@@ -18,7 +18,7 @@ void ghb_stride::operate(champsim::address addr, champsim::address pc, uint32_t 
   } else {
     // If the table is full, evict the least recently used entry
     if (index_table.size() >= it_size) {
-      int lru_pc = lru_list.back(); // Get the least recently used PC
+      std::size_t lru_pc = lru_list.back(); // Get the least recently used PC
       lru_list.pop_back(); // Remove it from the LRU list
       index_table.erase(lru_pc); // Remove it from the map
     }
