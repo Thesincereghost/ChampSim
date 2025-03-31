@@ -12,7 +12,7 @@ class ghb_stride : public champsim::modules::prefetcher {
 public:
   using prefetcher::prefetcher;
   static constexpr unsigned int DEFAULT_IT_SIZE = 2048;
-  static constexpr unsigned int DEFAULT_GHB_SIZE = 2048*4;
+  static constexpr unsigned int DEFAULT_GHB_SIZE = 50 ; //2048*4
   static constexpr unsigned int DEFAULT_LOOKAHEAD = 0;
   static constexpr unsigned int DEFAULT_PREFETCH_DEGREE = 4;
   static constexpr unsigned int DEFAULT_SEQUENCE_LENGTH = 3;
@@ -26,12 +26,14 @@ public:
 
 private:
   struct GHBEntry {
-    champsim::address addr;
+    champsim::block_number addr;
     int prev_ptr;
   };
 
   void operate(champsim::address addr, champsim::address pc, uint32_t metadata_in);
   void issue_prefetch(champsim::address addr, uint32_t metadata_in);
+  void print_ghb() const; // Method to print GHB contents
+  void print_index_table() const; // Method to print index table contents
 
   unsigned int it_size = DEFAULT_IT_SIZE;
   unsigned int ghb_size = DEFAULT_GHB_SIZE;

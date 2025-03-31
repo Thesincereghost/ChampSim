@@ -17,7 +17,7 @@ public:
 
 private:
   struct GHBEntry {
-    champsim::address addr;
+    champsim::block_number addr;
     int prev_ptr;
   };
 
@@ -51,6 +51,8 @@ private:
 
   void operate(champsim::address addr, champsim::address pc, uint32_t metadata_in);
   void issue_prefetch(champsim::address addr, uint32_t metadata_in);
+  void print_ghb() const; // Method to print GHB contents
+  void print_index_table() const; // Method to print index table contents
   void adjust_aggressiveness();
   void update_counters();
   void reset_counters();
